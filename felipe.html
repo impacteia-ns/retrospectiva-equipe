@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDI 2025 - Felipe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-6">
+            <div class="flex items-start justify-between">
+                <div>
+                    <h1 class="text-4xl font-bold text-slate-800 mb-2">Plano de Desenvolvimento Individual</h1>
+                    <p class="text-3xl font-bold text-blue-600 mb-1">FELIPE</p>
+                    <p class="text-lg text-slate-600">Retrospectiva 2025</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-slate-500 mb-1">Período Avaliado</div>
+                    <div class="text-2xl font-bold text-slate-800">Jan - Nov 2025</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-6 flex-wrap">
+            <button onclick="showTab('overview')" id="tab-overview" class="px-6 py-3 rounded-lg font-semibold transition-all bg-blue-600 text-white shadow-lg">
+                Visão Geral
+            </button>
+            <button onclick="showTab('performance')" id="tab-performance" class="px-6 py-3 rounded-lg font-semibold transition-all bg-white text-slate-600 hover:bg-slate-50">
+                Performance Detalhada
+            </button>
+            <button onclick="showTab('pdi')" id="tab-pdi" class="px-6 py-3 rounded-lg font-semibold transition-all bg-white text-slate-600 hover:bg-slate-50">
+                Plano de Desenvolvimento
+            </button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="content-overview" class="space-y-6">
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-lg">
+                    <div class="text-sm opacity-90 mb-2">Taxa de Renovação</div>
+                    <div class="text-4xl font-bold mb-1">82,4%</div>
+                    <div class="text-sm opacity-90">722 de 876 clientes</div>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
+                    <div class="text-sm opacity-90 mb-2">Vendas Realizadas</div>
+                    <div class="text-4xl font-bold mb-1">228</div>
+                    <div class="text-sm opacity-90">Média: 20,7 vendas/mês</div>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
+                    <div class="text-sm opacity-90 mb-2">Taxa de Conversão</div>
+                    <div class="text-4xl font-bold mb-1">15,5%</div>
+                    <div class="text-sm opacity-90">228 de 1.469 leads</div>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-lg">
+                    <div class="text-sm opacity-90 mb-2">Leads Trabalhados</div>
+                    <div class="text-4xl font-bold mb-1">1.469</div>
+                    <div class="text-sm opacity-90">Média: 134 leads/mês</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Evolução de Vendas</h3>
+                    <canvas id="vendasChart"></canvas>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Taxa de Renovação Mensal</h3>
+                    <canvas id="renovacaoChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Insights -->
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    📈 Principais Insights
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <div class="font-semibold text-green-800 mb-2">Melhor Mês de Vendas</div>
+                        <div class="text-sm text-green-700">Julho com 35 vendas realizadas</div>
+                    </div>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                        <div class="font-semibold text-blue-800 mb-2">Renovação Consistente</div>
+                        <div class="text-sm text-blue-700">Manteve média de 82,4% ao longo do ano</div>
+                    </div>
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                        <div class="font-semibold text-orange-800 mb-2">Alto Volume de Leads</div>
+                        <div class="text-sm text-orange-700">Picos em Julho (216) e Outubro (260)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Tab -->
+        <div id="content-performance" class="space-y-6 hidden">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <h3 class="text-xl font-bold text-slate-800 mb-4">Comparativo: Leads vs Conversão</h3>
+                <canvas id="leadsConversaoChart"></canvas>
+                <div class="mt-4 p-4 bg-yellow-50 rounded-lg">
+                    <p class="text-sm text-yellow-800">
+                        <strong>Insight:</strong> Quando o volume de leads aumenta significativamente, a taxa de conversão tende a cair, indicando possível gargalo de priorização.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Renovações por Mês</h3>
+                    <canvas id="renovacoesMesChart"></canvas>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Destaques do Ano</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+                            <span class="text-green-600 text-xl">🏆</span>
+                            <div>
+                                <div class="font-semibold text-green-800">Abril: Taxa de Renovação</div>
+                                <div class="text-sm text-green-700">89,7% - Excelente desempenho</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+                            <span class="text-blue-600 text-xl">🏆</span>
+                            <div>
+                                <div class="font-semibold text-blue-800">Julho: Vendas Novas</div>
+                                <div class="text-sm text-blue-700">35 vendas - Melhor mês do ano</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
+                            <span class="text-purple-600 text-xl">🏆</span>
+                            <div>
+                                <div class="font-semibold text-purple-800">Agosto: Alto Volume</div>
+                                <div class="text-sm text-purple-700">115 clientes atendidos</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-red-50 rounded-lg">
+                            <span class="text-red-600 text-xl">⚠️</span>
+                            <div>
+                                <div class="font-semibold text-red-800">Setembro: Atenção</div>
+                                <div class="text-sm text-red-700">Apenas 10 vendas - Investigar causas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PDI Tab -->
+        <div id="content-pdi" class="space-y-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Pontos Fortes -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center gap-2">
+                        🏆 Pontos Fortes
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-green-500 mt-2"></div>
+                            <div class="text-slate-700">Excelente taxa de renovação (82,4%)</div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-green-500 mt-2"></div>
+                            <div class="text-slate-700">Boa gestão de carteira ativa</div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-green-500 mt-2"></div>
+                            <div class="text-slate-700">Alta capacidade de absorver volume</div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-green-500 mt-2"></div>
+                            <div class="text-slate-700">Forte performance em meses estratégicos</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pontos de Atenção -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-orange-800 mb-4 flex items-center gap-2">
+                        ⚠️ Pontos de Atenção
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-3 bg-orange-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-orange-500 mt-2"></div>
+                            <div class="text-slate-700">Conversão de leads oscila bastante ao longo do ano</div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-orange-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-orange-500 mt-2"></div>
+                            <div class="text-slate-700">Queda de eficiência em meses de alto volume</div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-orange-50 rounded-lg">
+                            <div class="w-2 h-2 rounded-full bg-orange-500 mt-2"></div>
+                            <div class="text-slate-700">Falta de constância mensal nas vendas novas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Objetivos -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl shadow-lg p-8 text-white">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    🎯 Objetivos de Desenvolvimento 2026
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+                        <div class="text-3xl font-bold mb-2">1</div>
+                        <div class="font-semibold text-lg mb-3">Objetivo Comercial</div>
+                        <div class="text-sm opacity-90 mb-2">Aumentar conversão média</div>
+                        <div class="text-2xl font-bold">15,5% → 18%</div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+                        <div class="text-3xl font-bold mb-2">2</div>
+                        <div class="font-semibold text-lg mb-3">Objetivo Produtividade</div>
+                        <div class="text-sm opacity-90 mb-2">Manter mínimo mensal</div>
+                        <div class="text-2xl font-bold">≥ 22 vendas/mês</div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+                        <div class="text-3xl font-bold mb-2">3</div>
+                        <div class="font-semibold text-lg mb-3">Objetivo Operacional</div>
+                        <div class="text-sm opacity-90 mb-2">Sustentar renovação</div>
+                        <div class="text-2xl font-bold">≥ 82% sempre</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const monthlyData = [
+            { mes: 'Jan', atendidos: 62, renovados: 46, leads: 34, vendas: 14, taxaRenovacao: 74.2, taxaConversao: 41.2 },
+            { mes: 'Fev', atendidos: 70, renovados: 57, leads: 43, vendas: 17, taxaRenovacao: 81.4, taxaConversao: 39.5 },
+            { mes: 'Mar', atendidos: 93, renovados: 77, leads: 67, vendas: 12, taxaRenovacao: 82.8, taxaConversao: 17.9 },
+            { mes: 'Abr', atendidos: 68, renovados: 61, leads: 134, vendas: 20, taxaRenovacao: 89.7, taxaConversao: 14.9 },
+            { mes: 'Mai', atendidos: 81, renovados: 70, leads: 133, vendas: 18, taxaRenovacao: 86.4, taxaConversao: 13.5 },
+            { mes: 'Jun', atendidos: 68, renovados: 61, leads: 179, vendas: 26, taxaRenovacao: 89.7, taxaConversao: 14.5 },
+            { mes: 'Jul', atendidos: 83, renovados: 67, leads: 216, vendas: 35, taxaRenovacao: 80.7, taxaConversao: 16.2 },
+            { mes: 'Ago', atendidos: 115, renovados: 91, leads: 167, vendas: 25, taxaRenovacao: 79.1, taxaConversao: 15.0 },
+            { mes: 'Set', atendidos: 77, renovados: 62, leads: 100, vendas: 10, taxaRenovacao: 80.5, taxaConversao: 10.0 },
+            { mes: 'Out', atendidos: 62, renovados: 50, leads: 260, vendas: 28, taxaRenovacao: 80.6, taxaConversao: 10.8 },
+            { mes: 'Nov', atendidos: 97, renovados: 80, leads: 133, vendas: 23, taxaRenovacao: 82.5, taxaConversao: 17.3 }
+        ];
+
+        // Tab switching
+        function showTab(tabName) {
+            ['overview', 'performance', 'pdi'].forEach(tab => {
+                document.getElementById(`content-${tab}`).classList.add('hidden');
+                document.getElementById(`tab-${tab}`).classList.remove('bg-blue-600', 'text-white', 'shadow-lg');
+                document.getElementById(`tab-${tab}`).classList.add('bg-white', 'text-slate-600');
+            });
+            
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).classList.remove('bg-white', 'text-slate-600');
+            document.getElementById(`tab-${tabName}`).classList.add('bg-blue-600', 'text-white', 'shadow-lg');
+        }
+
+        // Chart: Vendas
+        new Chart(document.getElementById('vendasChart'), {
+            type: 'bar',
+            data: {
+                labels: monthlyData.map(d => d.mes),
+                datasets: [{
+                    label: 'Vendas',
+                    data: monthlyData.map(d => d.vendas),
+                    backgroundColor: '#3b82f6'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+
+        // Chart: Taxa de Renovação
+        new Chart(document.getElementById('renovacaoChart'), {
+            type: 'line',
+            data: {
+                labels: monthlyData.map(d => d.mes),
+                datasets: [{
+                    label: 'Taxa (%)',
+                    data: monthlyData.map(d => d.taxaRenovacao),
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        min: 70,
+                        max: 95
+                    }
+                }
+            }
+        });
+
+        // Chart: Leads vs Conversão
+        new Chart(document.getElementById('leadsConversaoChart'), {
+            type: 'line',
+            data: {
+                labels: monthlyData.map(d => d.mes),
+                datasets: [{
+                    label: 'Leads Recebidos',
+                    data: monthlyData.map(d => d.leads),
+                    borderColor: '#8b5cf6',
+                    yAxisID: 'y'
+                }, {
+                    label: 'Taxa Conversão (%)',
+                    data: monthlyData.map(d => d.taxaConversao),
+                    borderColor: '#ef4444',
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: { type: 'linear', position: 'left' },
+                    y1: { type: 'linear', position: 'right', grid: { drawOnChartArea: false } }
+                }
+            }
+        });
+
+        // Chart: Renovações
+        new Chart(document.getElementById('renovacoesMesChart'), {
+            type: 'bar',
+            data: {
+                labels: monthlyData.map(d => d.mes),
+                datasets: [{
+                    label: 'Atendidos',
+                    data: monthlyData.map(d => d.atendidos),
+                    backgroundColor: '#94a3b8'
+                }, {
+                    label: 'Renovados',
+                    data: monthlyData.map(d => d.renovados),
+                    backgroundColor: '#10b981'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+    </script>
+</body>
+</html>
